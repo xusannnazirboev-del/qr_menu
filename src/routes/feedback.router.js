@@ -13,8 +13,10 @@ feedbackRouter
     .post(
         "/",
         Protected(false),
-        upload.single("image"), ValidationMiddleware(feedbackValidator),
+        upload.single("image"),
+        ValidationMiddleware(feedbackValidator),
         feedbackController.create,
-    );
+    )
+    .post("/send-otp", Protected(false), feedbackController.sendOtpFeedback);
 
 export default feedbackRouter;

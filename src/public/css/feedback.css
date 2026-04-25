@@ -232,3 +232,13 @@ body {
   .card { padding: 1.5rem; }
   .navbar { padding: 12px 16px; }
 }
+
+.alert-info {
+  background: #1e2a3a;
+  border: 1px solid #2d4a6a;
+  color: #a0c4d4;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 1.25rem;
+}

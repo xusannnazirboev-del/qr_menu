@@ -1,11 +1,28 @@
 import transporter from "../configs/mail.config.js";
 import { Feedback } from "../models/feedback.model.js";
 import { UAParser } from "ua-parser-js";
+import { generateOTP, saveOTP } from "../utils/otp.utils.js";
+import smsService from "../integrations/sms/sms.service.js";
 class FeedbackController {
     #_feedbackModel;
     constructor() {
         this.#_feedbackModel = Feedback;
     }
+    sendOtpFeedback = async (req, res, next) => {
+        try {
+            const { phone } = req.body;
+            if (!phone) {
+                return res.redirect("/feedback?error=Phone number not given");
+            }
+            const otp = generateOTP();
+            saveOTP(phone, otp);
+            await smsService.sendSms("4546", phone, "Bu Eskiz dan test");
+            res.redirect(`/feedback?phone=${phone}&info=OTP: ${otp} (test rejimi)`);
+        } catch (error) {
+            next(error);
+        }
+    };
+
     getAll = async (req, res, next) => {
         try {
             const feedbacks = await this.#_feedbackModel.find();
@@ -21,8 +38,16 @@ class FeedbackController {
     };
     create = async (req, res, next) => {
         try {
-            const { message, type } = req.body;
+            const { message, type, otp, phone } = req.body;
 
+            if (phone && otp) {
+                const isValid = verifyOTP(phone, otp);
+                if (!isValid) {
+                    return res.redirect(
+                        `/feedback?error=OTP noto'g'ri yoki muddati tugagan&phone=${phone}`,
+                    );
+                }
+            }
             const ua = UAParser(req.headers["user-agent"]);
             const device_info =
                 `${ua.browser.name || "desktop"} — ${ua.os.name || "desktop"} ${ua.os.version || ""}`.trim();
@@ -58,5 +83,4 @@ class FeedbackController {
     };
 }
 
-
-export default new FeedbackController()
+export default new FeedbackController();

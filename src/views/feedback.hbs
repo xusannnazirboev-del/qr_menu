@@ -18,7 +18,6 @@
 
   <div class="page">
     <div class="card">
-
       <div class="card-header">
         <h1>Fikr qoldirish</h1>
         <p>Xizmatimiz haqida fikringizni bildiring</p>
@@ -29,6 +28,9 @@
       {{/if}}
       {{#if error}}
         <div class="alert-error">{{error}}</div>
+      {{/if}}
+      {{#if info}}
+        <div class="alert-info">{{info}}</div>
       {{/if}}
 
       <!-- Tur tanlash -->
@@ -43,27 +45,43 @@
         </div>
       </div>
 
+      <!-- Telefon — ixtiyoriy -->
+      <form action="/api/feedback/send-otp" method="POST">
+        <div class="form-group">
+          <label>Telefon raqam <span style="color:#9a8066;font-size:11px;">(ixtiyoriy)</span></label>
+          <div style="display:flex;gap:8px;">
+            <input type="text" name="phone" placeholder="+998901234567"
+              style="flex:1;padding:11px 14px;background:#2a1808;border:1px solid #3a2a18;border-radius:8px;color:#f5e6c8;font-size:14px;outline:none;"/>
+            <button type="submit"
+              style="padding:11px 20px;background:#2a1808;border:1px solid #d4a832;color:#d4a832;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">
+              OTP olish
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Asosiy feedback forma -->
       <form action="/api/feedback" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="type" id="type-input" value="review"/>
+        <input type="hidden" name="phone" value="{{phone}}"/>
+
+        <div class="form-group">
+          <label>OTP kod <span style="color:#9a8066;font-size:11px;">(ixtiyoriy)</span></label>
+          <input type="text" name="otp" placeholder="123456" maxlength="6"
+            style="width:100%;padding:11px 14px;background:#2a1808;border:1px solid #3a2a18;border-radius:8px;color:#f5e6c8;font-size:20px;letter-spacing:8px;outline:none;text-align:center;"/>
+        </div>
 
         <div class="form-group">
           <label>Xabaringiz</label>
-          <textarea
-            name="message"
-            placeholder="Fikringizni yozing..."
-            rows="5"
-            required
-          ></textarea>
+          <textarea name="message" placeholder="Fikringizni yozing..." rows="5" required></textarea>
         </div>
 
         <div class="form-group">
           <label>Rasm (ixtiyoriy)</label>
           <div class="file-upload">
             <input type="file" name="image" accept="image/*" id="file-input" onchange="previewImage(event)"/>
-            <label for="file-input" class="file-label">
-              <span>Rasm tanlang</span>
-            </label>
-            <img id="preview" src="" alt="" style="display:none;width:100%;border-radius:8px;margin-top:10px;max-height:200px;object-fit:cover;"/>
+            <label for="file-input" class="file-label"><span>Rasm tanlang</span></label>
+            <img id="preview" src="" style="display:none;width:100%;border-radius:8px;margin-top:10px;max-height:200px;object-fit:cover;"/>
           </div>
         </div>
 
@@ -80,7 +98,6 @@
       document.getElementById("btn-complaint").classList.toggle("active", type === "complaint");
     }
 
-    // URL dan type olish (?type=complaint)
     const urlType = new URLSearchParams(window.location.search).get("type");
     if (urlType) selectType(urlType);
 

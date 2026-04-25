@@ -62,6 +62,7 @@ app.all("*splat", (req, res, next) => {
     throw new NotFoundException(`Given URL : ${req.url} not found`);
 });
 app.use(ErrorHandlerMiddleware);
-app.listen(appConfig.APP_PORT, () => {
+
+app.listen(appConfig.APP_PORT,"0.0.0.0", () => {
     console.log(`listening on ${appConfig.APP_PORT}`);
 });

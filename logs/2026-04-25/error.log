@@ -1,13 +1,9 @@
-{"level":"error","message":"{\"message\":\"Given URL : /apple-touch-icon-precomposed.png not found\",\"url\":\"/apple-touch-icon-precomposed.png\",\"method\":\"GET\"}","timestamp":"2026-04-24T22:11:47.869Z"}
-{"level":"error","message":"{\"message\":\"Given URL : /apple-touch-icon.png not found\",\"url\":\"/apple-touch-icon.png\",\"method\":\"GET\"}","timestamp":"2026-04-24T22:11:47.872Z"}
-{"level":"error","message":"{\"message\":\"Given URL : /favicon.ico not found\",\"url\":\"/favicon.ico\",\"method\":\"GET\"}","timestamp":"2026-04-24T22:11:47.873Z"}
-{"level":"error","message":"{\"message\":\"Given URL : /feedback?type=review not found\",\"url\":\"/feedback?type=review\",\"method\":\"GET\"}","timestamp":"2026-04-24T22:17:19.209Z"}
-{"level":"error","message":"{\"message\":\"Given URL : /api/feedback not found\",\"url\":\"/api/feedback\",\"method\":\"POST\"}","timestamp":"2026-04-24T22:19:46.787Z"}
-{"level":"error","message":"{\"message\":\"UAParser is not defined\",\"url\":\"/api/feedback\",\"method\":\"POST\"}","timestamp":"2026-04-24T22:25:45.752Z"}
-{"level":"error","message":"{\"message\":\"UAParser is not defined\",\"url\":\"/api/feedback\",\"method\":\"POST\"}","timestamp":"2026-04-24T22:26:24.912Z"}
-{"level":"error","message":"{\"message\":\"Missing credentials for \\\"PLAIN\\\"\",\"url\":\"/api/feedback\",\"method\":\"POST\"}","timestamp":"2026-04-24T22:28:08.546Z"}
-{"level":"error","message":"{\"message\":\"Missing credentials for \\\"PLAIN\\\"\",\"url\":\"/api/feedback\",\"method\":\"POST\"}","timestamp":"2026-04-25T02:57:09.409Z"}
-{"level":"error","message":"{\"message\":\"Given URL : /apple-touch-icon-precomposed.png not found\",\"url\":\"/apple-touch-icon-precomposed.png\",\"method\":\"GET\"}","timestamp":"2026-04-25T02:59:10.313Z"}
-{"level":"error","message":"{\"message\":\"Given URL : /apple-touch-icon.png not found\",\"url\":\"/apple-touch-icon.png\",\"method\":\"GET\"}","timestamp":"2026-04-25T02:59:10.315Z"}
-{"level":"error","message":"{\"message\":\"Given URL : /favicon.ico not found\",\"url\":\"/favicon.ico\",\"method\":\"GET\"}","timestamp":"2026-04-25T02:59:10.315Z"}
-{"level":"error","message":"{\"message\":\"Missing credentials for \\\"PLAIN\\\"\",\"url\":\"/api/feedback\",\"method\":\"POST\"}","timestamp":"2026-04-25T03:00:51.767Z"}
+{"level":"error","message":"{\"message\":\"Given URL : /forgot-password?message=%27Reset%20email%20sent,%20please%20check%20your%20email%27 not found\",\"url\":\"/forgot-password?message=%27Reset%20email%20sent,%20please%20check%20your%20email%27\",\"method\":\"GET\"}","timestamp":"2026-04-25T10:16:41.877Z"}
+{"level":"error","message":"{\"message\":\"Parol kiritilmagan\",\"url\":\"/api/auth/login\",\"method\":\"POST\"}","timestamp":"2026-04-25T11:17:50.260Z"}
+{"level":"error","message":"{\"message\":\"Given URL : /meu not found\",\"url\":\"/meu\",\"method\":\"GET\"}","timestamp":"2026-04-25T11:20:48.072Z"}
+{"level":"error","message":"{\"message\":\"Parol kiritilmagan\",\"url\":\"/api/auth/login\",\"method\":\"POST\"}","timestamp":"2026-04-25T11:25:23.865Z"}
+{"level":"error","message":"{\"message\":\"Parol kiritilmagan\",\"url\":\"/api/auth/login\",\"method\":\"POST\"}","timestamp":"2026-04-25T11:27:23.280Z"}
+{"level":"error","message":"{\"message\":\"Given URL : /api/auth/back?error=Parol%20kiritilmagan not found\",\"url\":\"/api/auth/back?error=Parol%20kiritilmagan\",\"method\":\"GET\"}","timestamp":"2026-04-25T11:30:36.538Z"}
+{"level":"error","message":"{\"message\":\"Token not given\",\"url\":\"/dashboard\",\"method\":\"GET\"}","timestamp":"2026-04-25T11:51:36.208Z"}
+{"level":"error","message":"{\"message\":\"Token not given\",\"url\":\"/dashboard\",\"method\":\"GET\"}","timestamp":"2026-04-25T11:51:42.230Z"}
+{"level":"error","message":"{\"message\":\"Given URL : /apple-touch-icon-precomposed.png not found\",\"url\":\"/apple-touch-icon-precomposed.png\",\"method\":\"GET\"}","timestamp":"2026-04-25T11:52:03.201Z"}

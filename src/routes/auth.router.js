@@ -14,10 +14,9 @@ authRouter
         ValidationMiddleware(registerValidators),
         authController.register,
     )
-    .post(
-        "/login",
-        ValidationMiddleware(loginValidators),
-        authController.login,
-    );
+    .post("/login", ValidationMiddleware(loginValidators), authController.login)
+    .post("/refresh", authController.refresh)
+    .post("/forgot-password", authController.forgotPassword)
+    .post("/reset-password", authController.resetPassword);
 
 export default authRouter;

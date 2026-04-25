@@ -18,7 +18,8 @@ router.get("/register", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-    res.render("auth/login");
+    const { error } = req.query; 
+    res.render("auth/login", { error });
 });
 
 router.get("/menu", async (req, res, next) => {
@@ -63,7 +64,7 @@ router.get(
 
 router.get("/qr", Protected(), Roles("ADMIN"), async (req, res, next) => {
     try {
-        const menuUrl = `${req.protocol}://${req.get("host")}/menu`;
+        const menuUrl = `${process.env.APP_URL}/menu`;
         const qrImage = await QRCode.toDataURL(menuUrl, {
             width: 300,
             color: {
@@ -77,8 +78,20 @@ router.get("/qr", Protected(), Roles("ADMIN"), async (req, res, next) => {
         next(error);
     }
 });
+
 router.get("/feedback", (req, res) => {
-    const { type, success, error } = req.query;
-    res.render("feedback", { type, success, error });
+    const { type, success, error, phone, info } = req.query;
+    res.render("feedback", { type, success, error, phone, info });
+});
+router.get("/forgot-password", (req, res) => {
+    const { message, error } = req.query;
+    res.render("auth/forgot-password", { message, error });
+});
+
+router.get("/reset-password", (req, res) => {
+    const { error } = req.query;
+    // query string ni formaga uzatish
+    const queryString = "?" + new URLSearchParams(req.query).toString();
+    res.render("auth/reset-password", { error, queryString });
 });
 export default router;
