@@ -1,6 +1,6 @@
 import winston from "winston";
 import DailyRotateFile from "winston-daily-rotate-file";
-
+import "winston-mongodb"; 
 const exactLevel = (level) => {
     return winston.format((info) => {
         return info.level === level ? info : false;
@@ -32,6 +32,16 @@ const logger = winston.createLogger({
         createRotatingTransport("error"),
         createRotatingTransport("info"),
         createRotatingTransport("debug"),
+
+        new winston.transports.MongoDB({
+            db: process.env.MONGO_URL,
+            collection: "logs",
+            level: "error",
+            format: winston.format.combine(
+                winston.format.timestamp(),
+                winston.format.json(),
+            ),
+        }),
     ],
 });
 
