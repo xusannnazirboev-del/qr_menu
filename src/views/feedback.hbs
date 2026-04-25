@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fikr qoldirish | QR Restoran</title>
+  <link rel="stylesheet" href="/public/css/feedback.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="nav-icon">🍽</div>
+      <span>QR Restoran</span>
+    </div>
+    <a href="/menu" class="nav-back">← Menyuga qaytish</a>
+  </nav>
+
+  <div class="page">
+    <div class="card">
+
+      <div class="card-header">
+        <h1>Fikr qoldirish</h1>
+        <p>Xizmatimiz haqida fikringizni bildiring</p>
+      </div>
+
+      {{#if success}}
+        <div class="alert-success">{{success}}</div>
+      {{/if}}
+      {{#if error}}
+        <div class="alert-error">{{error}}</div>
+      {{/if}}
+
+      <!-- Tur tanlash -->
+      <div class="type-selector">
+        <div class="type-btn active" id="btn-review" onclick="selectType('review')">
+          <div class="type-icon">⭐</div>
+          <span>Ijobiy fikr</span>
+        </div>
+        <div class="type-btn" id="btn-complaint" onclick="selectType('complaint')">
+          <div class="type-icon">⚠️</div>
+          <span>Shikoyat</span>
+        </div>
+      </div>
+
+      <form action="/api/feedback" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="type" id="type-input" value="review"/>
+
+        <div class="form-group">
+          <label>Xabaringiz</label>
+          <textarea
+            name="message"
+            placeholder="Fikringizni yozing..."
+            rows="5"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Rasm (ixtiyoriy)</label>
+          <div class="file-upload">
+            <input type="file" name="image" accept="image/*" id="file-input" onchange="previewImage(event)"/>
+            <label for="file-input" class="file-label">
+              <span>Rasm tanlang</span>
+            </label>
+            <img id="preview" src="" alt="" style="display:none;width:100%;border-radius:8px;margin-top:10px;max-height:200px;object-fit:cover;"/>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Yuborish</button>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    function selectType(type) {
+      document.getElementById("type-input").value = type;
+      document.getElementById("btn-review").classList.toggle("active", type === "review");
+      document.getElementById("btn-complaint").classList.toggle("active", type === "complaint");
+    }
+
+    // URL dan type olish (?type=complaint)
+    const urlType = new URLSearchParams(window.location.search).get("type");
+    if (urlType) selectType(urlType);
+
+    function previewImage(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const img = document.getElementById("preview");
+        img.src = ev.target.result;
+        img.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+
+</body>
+</html>

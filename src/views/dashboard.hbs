@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | QR Restoran</title>
+  <link rel="stylesheet" href="/public/css/dashboard.css"/>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <div class="icon">🍽</div>
+      <h2>QR Menyu</h2>
+      <p>Admin Panel</p>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-label">Boshqaruv</div>
+      <a href="/dashboard" class="nav-item active">
+        <span class="dot"></span> Dashboard
+      </a>
+      <div class="nav-label">Menyu</div>
+      <a href="/dashboard" class="nav-item">
+        <span class="dot"></span> Kategoriyalar
+      </a>
+      <a href="/dashboard" class="nav-item">
+        <span class="dot"></span> Mahsulotlar
+      </a>
+      <div class="nav-label">Mijozlar</div>
+      <a href="/dashboard" class="nav-item">
+        <span class="dot"></span> Fikr-mulohazalar
+      </a>
+      <a href="/qr" class="nav-item">
+        <span class="dot"></span> QR Kod
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="/logout">
+        <button class="logout-btn">Chiqish</button>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <h1>Xush kelibsiz, Admin!</h1>
+        <p>Menyuni boshqaring</p>
+      </div>
+      <span class="admin-badge">ADMIN</span>
+    </div>
+
+    <div class="content">
+      {{#if success}}
+        <div class="alert-success">{{success}}</div>
+      {{/if}}
+      {{#if error}}
+        <div class="alert-error">{{error}}</div>
+      {{/if}}
+
+      <!-- Statistika -->
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Kategoriyalar</div>
+          <div class="stat-val">{{categories.length}}</div>
+          <div class="stat-sub">aktiv</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Mahsulotlar</div>
+          <div class="stat-val">{{products.length}}</div>
+          <div class="stat-sub">menyuda</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Fikr-mulohazalar</div>
+          <div class="stat-val">{{feedbacks.length}}</div>
+          <div class="stat-sub">yangi</div>
+        </div>
+      </div>
+
+      <!-- Kategoriya -->
+      <div class="section">
+        <div class="section-header">
+          <h3>Kategoriyalar</h3>
+        </div>
+        <form action="/api/categories" method="POST" class="form-row">
+          <input type="text" name="name" placeholder="Kategoriya nomi" required/>
+          <button type="submit" class="add-btn">Qo'shish</button>
+        </form>
+        <table class="table">
+          <thead>
+            <tr><th>#</th><th>Nomi</th><th>Amal</th></tr>
+          </thead>
+          <tbody>
+            {{#each categories}}
+  <tr>
+    <td>{{add @index 1}}</td>
+    <td>
+      {{#if (eq ../editCategoryId (toString this._id))}}
+        <form action="/api/categories/{{this._id}}?_method=PUT" method="POST" class="form-row" style="margin:0">
+          <input type="text" name="name" value="{{this.name}}" required/>
+          <button type="submit" class="add-btn">Saqlash</button>
+          <a href="/dashboard" class="del-btn" style="padding:4px 10px;text-decoration:none">Bekor</a>
+        </form>
+      {{else}}
+        {{this.name}}
+      {{/if}}
+    </td>
+    <td style="display:flex;gap:6px">
+  <button
+    onclick="openCategoryModal('{{this._id}}', '{{this.name}}')"
+    class="add-btn" style="font-size:11px;padding:4px 10px;">
+    Tahrirlash
+  </button>
+  <form action="/api/categories/{{this._id}}?_method=DELETE" method="POST">
+    <button type="submit" class="del-btn">O'chirish</button>
+  </form>
+</td>
+  </tr>
+{{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mahsulot -->
+      <div class="section">
+        <div class="section-header">
+          <h3>Mahsulotlar</h3>
+        </div>
+        <form action="/api/products" method="POST" enctype="multipart/form-data">
+  <div class="form-row">
+    <input type="text" name="name" placeholder="Mahsulot nomi" required/>
+    <input type="number" name="price" placeholder="Narxi (so'm)" required/>
+    <select name="category_id" required>
+      <option value="">Kategoriya tanlang</option>
+      {{#each categories}}
+        <option value="{{this._id}}">{{this.name}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <div class="form-row" style="margin-top: 8px;">
+    <input type="file" name="image" accept="image/*"/>
+    <button type="submit" class="add-btn">Qo'shish</button>
+  </div>
+</form>
+        <table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Rasm</th>  <!-- ← yangi -->
+      <th>Nomi</th>
+      <th>Narxi</th>
+      <th>Kategoriya</th>
+      <th>Amal</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products}}
+  <tr>
+    <td>{{add @index 1}}</td>
+    <td>
+      {{#if this.image_url}}
+        <img src="{{this.image_url}}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;"/>
+      {{else}}
+        <div style="width:50px;height:50px;background:#f5f0e8;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px;">🍽</div>
+      {{/if}}
+    </td>
+    <td>
+      {{#if (eq ../editProductId (toString this._id))}}
+        <form action="/api/products/{{this._id}}?_method=PUT" method="POST" enctype="multipart/form-data">
+          <div class="form-row" style="margin:0 0 6px">
+            <input type="text" name="name" value="{{this.name}}" required/>
+            <input type="number" name="price" value="{{this.price}}" required/>
+            <select name="category_id" required>
+              {{#each ../categories}}
+                <option value="{{this._id}}">{{this.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="form-row" style="margin:0">
+            <input type="file" name="image" accept="image/*"/>
+            <button type="submit" class="add-btn">Saqlash</button>
+            <a href="/dashboard" class="del-btn" style="padding:4px 10px;text-decoration:none">Bekor</a>
+          </div>
+        </form>
+      {{else}}
+        {{this.name}}
+      {{/if}}
+    </td>
+    <td>{{this.price}} so'm</td>
+    <td>{{this.category_id.name}}</td>
+    <td style="display:flex;gap:6px">
+  <button
+    onclick="openProductModal('{{this._id}}', '{{this.name}}', {{this.price}}, '{{this.category_id._id}}')"
+    class="add-btn" style="font-size:11px;padding:4px 10px;">
+    Tahrirlash
+  </button>
+  <form action="/api/products/{{this._id}}?_method=DELETE" method="POST">
+    <button type="submit" class="del-btn">O'chirish</button>
+  </form>
+</td>
+  </tr>
+{{/each}}
+  </tbody>
+</table>
+      </div>
+
+      <!-- Fikr-mulohazalar -->
+      <div class="section">
+        <div class="section-header">
+          <h3>Fikr-mulohazalar</h3>
+        </div>
+        <table class="table">
+          <thead>
+            <tr><th>Xabar</th><th>Turi</th><th>Qurilma</th><th>Sana</th></tr>
+          </thead>
+          <tbody>
+            {{#each feedbacks}}
+              <tr>
+                <td>{{this.message}}</td>
+                <td>
+                  <span class="badge {{#if (eq this.type 'review')}}badge-review{{else}}badge-complaint{{/if}}">
+                    {{this.type}}
+                  </span>
+                </td>
+                <td>{{this.device_info}}</td>
+                <td>{{this.createdAt}}</td>
+              </tr>
+            {{else}}
+              <tr><td colspan="4" style="color:#9a8066;text-align:center">Fikr-mulohazalar yo'q</td></tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+<!-- Modal -->
+<div id="modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:100;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:2rem;width:480px;max-width:90%;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
+      <h3 id="modal-title" style="font-size:16px;font-weight:600;color:#1a1008;">Tahrirlash</h3>
+      <button onclick="closeModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#9a8066;">✕</button>
+    </div>
+
+    <!-- Kategoriya edit formasi -->
+    <form id="category-edit-form" method="POST" style="display:none;">
+      <div style="margin-bottom:1rem;">
+        <label style="font-size:13px;color:#555;display:block;margin-bottom:6px;">Kategoriya nomi</label>
+        <input type="text" id="category-name-input" name="name"
+          style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;"
+          required/>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button type="button" onclick="closeModal()"
+          style="padding:9px 20px;border:1px solid #ddd;border-radius:8px;background:none;cursor:pointer;font-size:13px;">
+          Bekor
+        </button>
+        <button type="submit"
+          style="padding:9px 20px;background:#1a1008;color:#f5e6c8;border:none;border-radius:8px;cursor:pointer;font-size:13px;">
+          Saqlash
+        </button>
+      </div>
+    </form>
+
+    <!-- Mahsulot edit formasi -->
+    <form id="product-edit-form" method="POST" enctype="multipart/form-data" style="display:none;">
+      <div style="margin-bottom:1rem;">
+        <label style="font-size:13px;color:#555;display:block;margin-bottom:6px;">Mahsulot nomi</label>
+        <input type="text" id="product-name-input" name="name"
+          style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;"
+          required/>
+      </div>
+      <div style="margin-bottom:1rem;">
+        <label style="font-size:13px;color:#555;display:block;margin-bottom:6px;">Narxi (so'm)</label>
+        <input type="number" id="product-price-input" name="price"
+          style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;"
+          required/>
+      </div>
+      <div style="margin-bottom:1rem;">
+        <label style="font-size:13px;color:#555;display:block;margin-bottom:6px;">Kategoriya</label>
+        <select id="product-category-input" name="category_id"
+          style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;">
+          {{#each categories}}
+            <option value="{{this._id}}">{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div style="margin-bottom:1.5rem;">
+        <label style="font-size:13px;color:#555;display:block;margin-bottom:6px;">Rasm (ixtiyoriy)</label>
+        <input type="file" name="image" accept="image/*"
+          style="width:100%;padding:8px;border:1px dashed #d4a832;border-radius:8px;font-size:13px;"/>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button type="button" onclick="closeModal()"
+          style="padding:9px 20px;border:1px solid #ddd;border-radius:8px;background:none;cursor:pointer;font-size:13px;">
+          Bekor
+        </button>
+        <button type="submit"
+          style="padding:9px 20px;background:#1a1008;color:#f5e6c8;border:none;border-radius:8px;cursor:pointer;font-size:13px;">
+          Saqlash
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+  const overlay = document.getElementById("modal-overlay");
+  const categoryForm = document.getElementById("category-edit-form");
+  const productForm = document.getElementById("product-edit-form");
+
+  function openCategoryModal(id, name) {
+    document.getElementById("modal-title").textContent = "Kategoriyani tahrirlash";
+    document.getElementById("category-name-input").value = name;
+    categoryForm.action = `/api/categories/${id}?_method=PUT`;
+    categoryForm.style.display = "block";
+    productForm.style.display = "none";
+    overlay.style.display = "flex";
+  }
+
+  function openProductModal(id, name, price, categoryId) {
+    document.getElementById("modal-title").textContent = "Mahsulotni tahrirlash";
+    document.getElementById("product-name-input").value = name;
+    document.getElementById("product-price-input").value = price;
+    document.getElementById("product-category-input").value = categoryId;
+    productForm.action = `/api/products/${id}?_method=PUT`;
+    productForm.style.display = "block";
+    categoryForm.style.display = "none";
+    overlay.style.display = "flex";
+  }
+
+  function closeModal() {
+    overlay.style.display = "none";
+  }
+
+  // Overlay ga bosib yopish
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeModal();
+  });
+</script>
+</body>
+</html>

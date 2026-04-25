@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8"/>
+  <title>QR Kod | QR Restoran</title>
+  <link rel="stylesheet" href="/public/css/dashboard.css"/>
+</head>
+<body>
+  <div style="min-height:100vh;background:#f5f0e8;display:flex;align-items:center;justify-content:center;">
+    <div style="background:#fff;border:1px solid #ede8de;border-radius:16px;padding:2.5rem;text-align:center;max-width:400px;width:90%;">
+
+      <div style="width:48px;height:48px;background:#d4a832;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 1rem;">🍽</div>
+
+      <h2 style="font-size:20px;font-weight:600;color:#1a1008;margin-bottom:6px;">Menyu QR Kodi</h2>
+      <p style="font-size:13px;color:#9a8066;margin-bottom:24px;">
+        Mijozlar ushbu QR kodni skanerlash orqali menyuni ko'rishi mumkin
+      </p>
+
+      <!-- QR rasm -->
+      <div style="background:#f5e6c8;border-radius:12px;padding:16px;display:inline-block;margin-bottom:20px;">
+        <img src="{{qrImage}}" alt="QR kod" style="width:220px;height:220px;display:block;"/>
+      </div>
+
+      <div style="background:#f5f0e8;border-radius:8px;padding:10px 14px;margin-bottom:20px;">
+        <p style="font-size:12px;color:#9a8066;margin-bottom:4px;">Menyu URL:</p>
+        <p style="font-size:13px;color:#1a1008;font-weight:500;">{{menuUrl}}</p>
+      </div>
+
+      <div style="display:flex;gap:10px;justify-content:center;">
+        <a href="/dashboard"
+          style="padding:10px 20px;border:1px solid #ddd;border-radius:8px;font-size:13px;color:#1a1008;text-decoration:none;">
+          Orqaga
+        </a>
+        <a href="{{qrImage}}" download="qr-menu.png"
+          style="padding:10px 20px;background:#1a1008;color:#f5e6c8;border-radius:8px;font-size:13px;text-decoration:none;font-weight:500;">
+          Yuklab olish
+        </a>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

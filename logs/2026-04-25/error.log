@@ -1,0 +1,13 @@
+{"level":"error","message":"{\"message\":\"Given URL : /apple-touch-icon-precomposed.png not found\",\"url\":\"/apple-touch-icon-precomposed.png\",\"method\":\"GET\"}","timestamp":"2026-04-24T22:11:47.869Z"}
+{"level":"error","message":"{\"message\":\"Given URL : /apple-touch-icon.png not found\",\"url\":\"/apple-touch-icon.png\",\"method\":\"GET\"}","timestamp":"2026-04-24T22:11:47.872Z"}
+{"level":"error","message":"{\"message\":\"Given URL : /favicon.ico not found\",\"url\":\"/favicon.ico\",\"method\":\"GET\"}","timestamp":"2026-04-24T22:11:47.873Z"}
+{"level":"error","message":"{\"message\":\"Given URL : /feedback?type=review not found\",\"url\":\"/feedback?type=review\",\"method\":\"GET\"}","timestamp":"2026-04-24T22:17:19.209Z"}
+{"level":"error","message":"{\"message\":\"Given URL : /api/feedback not found\",\"url\":\"/api/feedback\",\"method\":\"POST\"}","timestamp":"2026-04-24T22:19:46.787Z"}
+{"level":"error","message":"{\"message\":\"UAParser is not defined\",\"url\":\"/api/feedback\",\"method\":\"POST\"}","timestamp":"2026-04-24T22:25:45.752Z"}
+{"level":"error","message":"{\"message\":\"UAParser is not defined\",\"url\":\"/api/feedback\",\"method\":\"POST\"}","timestamp":"2026-04-24T22:26:24.912Z"}
+{"level":"error","message":"{\"message\":\"Missing credentials for \\\"PLAIN\\\"\",\"url\":\"/api/feedback\",\"method\":\"POST\"}","timestamp":"2026-04-24T22:28:08.546Z"}
+{"level":"error","message":"{\"message\":\"Missing credentials for \\\"PLAIN\\\"\",\"url\":\"/api/feedback\",\"method\":\"POST\"}","timestamp":"2026-04-25T02:57:09.409Z"}
+{"level":"error","message":"{\"message\":\"Given URL : /apple-touch-icon-precomposed.png not found\",\"url\":\"/apple-touch-icon-precomposed.png\",\"method\":\"GET\"}","timestamp":"2026-04-25T02:59:10.313Z"}
+{"level":"error","message":"{\"message\":\"Given URL : /apple-touch-icon.png not found\",\"url\":\"/apple-touch-icon.png\",\"method\":\"GET\"}","timestamp":"2026-04-25T02:59:10.315Z"}
+{"level":"error","message":"{\"message\":\"Given URL : /favicon.ico not found\",\"url\":\"/favicon.ico\",\"method\":\"GET\"}","timestamp":"2026-04-25T02:59:10.315Z"}
+{"level":"error","message":"{\"message\":\"Missing credentials for \\\"PLAIN\\\"\",\"url\":\"/api/feedback\",\"method\":\"POST\"}","timestamp":"2026-04-25T03:00:51.767Z"}

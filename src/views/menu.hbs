@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menyu | QR Restoran</title>
+  <link rel="stylesheet" href="/public/css/menu.css"/>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="nav-icon">🍽</div>
+      <span>QR Restoran</span>
+    </div>
+    <div class="nav-links">
+      <a href="/menu" class="nav-link">Menyu</a>
+      <a href="/feedback" class="nav-link">Fikr qoldirish</a>
+      <a href="/login" class="nav-login">Kirish</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-badge">YANGI MENYU 2026</div>
+    <h1>Mazali taomlar<br/>siz uchun tayyor</h1>
+    <p>Har bir taom sevgi bilan tayyorlanadi</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">Menyuni ko'rish</a>
+      <a href="/feedback" class="btn-secondary">Fikr qoldirish</a>
+    </div>
+  </div>
+
+  <!-- Kategoriya filtri -->
+  <div class="cats" id="cats">
+    <div class="cat-pill active" onclick="filterCat('all', this)">Hammasi</div>
+    {{#each categories}}
+      <div class="cat-pill" onclick="filterCat('{{this._id}}', this)">{{this.name}}</div>
+    {{/each}}
+  </div>
+
+  <!-- Mahsulotlar -->
+  <div class="content" id="menu">
+    <div class="section-title">Barcha taomlar</div>
+    <div class="products" id="products-grid">
+      {{#each products}}
+        <div class="product" data-cat="{{this.category_id._id}}">
+          <div class="product-img">
+            {{#if this.image_url}}
+              <img src="{{this.image_url}}" alt="{{this.name}}"/>
+            {{else}}
+              <div class="no-img-placeholder">
+                <svg width="48" height="48" viewBox="0 0 54 54">
+                  <rect width="54" height="54" rx="10" fill="#1a1008"/>
+                  <circle cx="27" cy="29" r="14" stroke="#d4a832" stroke-width="1.2" fill="none"/>
+                  <line x1="13" y1="29" x2="41" y2="29" stroke="#d4a832" stroke-width="0.8" opacity="0.4"/>
+                  <circle cx="27" cy="29" r="4" fill="#d4a832" opacity="0.8"/>
+                </svg>
+              </div>
+            {{/if}}
+          </div>
+          <div class="product-body">
+            <div class="product-name">{{this.name}}</div>
+            <div class="product-cat">{{this.category_id.name}}</div>
+            <div class="product-footer">
+              <span class="product-price">{{this.price}} so'm</span>
+            </div>
+          </div>
+        </div>
+      {{else}}
+        <p style="color:#9a8066;grid-column:1/-1;text-align:center;padding:40px 0;">
+          Hozircha mahsulotlar yo'q
+        </p>
+      {{/each}}
+    </div>
+
+    <!-- Feedback -->
+    <div class="feedback-section">
+      <h3>Taomni yaxshi ko'rdingizmi?</h3>
+      <p>Fikringiz bizga juda muhim — bir daqiqada fikr qoldiring</p>
+      <div class="feedback-btns">
+        <a href="/feedback?type=review" class="fb-btn fb-review">Ijobiy fikr</a>
+        <a href="/feedback?type=complaint" class="fb-btn fb-complaint">Shikoyat</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function filterCat(catId, el) {
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+
+      document.querySelectorAll('.product').forEach(p => {
+        if (catId === 'all' || p.dataset.cat === catId) {
+          p.style.display = 'block';
+        } else {
+          p.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

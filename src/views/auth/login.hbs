@@ -1,0 +1,100 @@
+{{!-- <h1>Login Page</h1>
+{{#if error}}
+    <p>{{error}}</p>
+{{/if}}
+<form action="/api/login" method="post">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required />
+    <p>Don't have an account?
+        <a href="/register">Sign up</a></p>
+    <button type="submit">Submit</button>
+
+</form> --}}
+
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kirish | QR Menyu</title>
+  <link rel="stylesheet" href="/public/css/login.css" />
+</head>
+<body>
+  <div class="page">
+
+    <!-- Chap panel -->
+    <div class="left">
+      <div class="left-pattern"></div>
+      <div class="brand">
+        <div class="brand-icon">🍽</div>
+        <h1>QR Menyu</h1>
+        <div class="brand-divider"></div>
+        <p>Restoraningizning raqamli menyusini boshqarish endi osonroq</p>
+        <div class="features">
+          <div class="feature">
+            <div class="feature-dot"></div>
+            <span>QR kod orqali menyu ko'rish</span>
+          </div>
+          <div class="feature">
+            <div class="feature-dot"></div>
+            <span>Mijozlar fikr-mulohazasi</span>
+          </div>
+          <div class="feature">
+            <div class="feature-dot"></div>
+            <span>Kategoriya va mahsulot boshqaruvi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- O'ng panel -->
+    <div class="right">
+      <div class="card">
+        <div class="card-header">
+          <h2>Xush kelibsiz 👋</h2>
+          <p>Akkauntingizga kiring</p>
+        </div>
+
+        {{#if error}}
+          <div class="error-msg">{{error}}</div>
+        {{/if}}
+
+        <form action="/api/auth/login" method="post">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="ex@gmail.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Parol</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn-submit">Kirish</button>
+        </form>
+
+        <div class="card-footer">
+          Akkauntingiz yo'qmi? <a href="/register">Ro'yxatdan o'tish</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
