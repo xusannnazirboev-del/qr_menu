@@ -8,8 +8,7 @@ export const productValidators = Joi.object({
     price: Joi.number().min(0).required().messages({
         "number.min": "price must be at least 0 characters",
     }),
-    category_id: Joi.string().hex().length(20).required().messages({
-        "string.hex": "Category ID is invalid",
-        "string.length": "Category ID is invalid ",
+    category_id: Joi.string().optional().allow("").messages({
+        "string.base": "Kategoriya noto'g'ri",
     }),
 });

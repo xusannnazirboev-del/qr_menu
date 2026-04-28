@@ -16,10 +16,11 @@ const app = express();
 
 app.use(express.json());
 
-
 app.get("/favicon.ico", (req, res) => res.status(204).end());
 app.get("/apple-touch-icon.png", (req, res) => res.status(204).end());
-
+app.get("/apple-touch-icon-precomposed.png", (req, res) =>
+    res.status(204).end(),
+);
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use("/public", express.static(path.join(process.cwd(), "src", "public")));
 
